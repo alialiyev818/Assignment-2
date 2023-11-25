@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+}
+
+.product-title {
+    color: #333;
+    font-size: 20px;
+}
+
+.product-category, .product-price, .product-discount, .product-stock {
+    color: #666;
+    font-size: 16px;
+}
