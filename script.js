@@ -1,33 +1,30 @@
+document.addEventListener('DOMContentLoaded', () => {
+    fetchProducts();
+});
 
-// Function to fetch products data
-
-let http = new XMLHttpRequest();
-http.open('get', 'products.json', true);
-http.send();
-
-function fetchProducts() {
-    // URL to the products.json file
-    const url = 'products.json';
-
-    // Fetch the JSON data
-    fetch(url)
-        .then(response => {
-            // Check if the response is OK
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            // Parse the JSON response
-            return response.json();
-        })
-        .then(data => {
-            // Process the products data
-            console.log('Products:', data.products);
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error fetching products:', error);
-        });
+async function fetchProducts() {
+    try {
+        const response = await fetch('https://dummyjson.com/products');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        displayProducts(data.products);
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+    }
 }
 
-// Call the function to fetch products
-fetchProducts();
+function displayProducts(products) {
+    const container = document.getElementById('products-container');
+    products.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.innerHTML = `
+            <h2>${product.title}</h2>
+            <img src="${product.thumbnail}" alt="${product.title}" />
+            <p>${product.description}</p>
+            <p>Price: $${product.price}</p>
+        `;
+        container.appendChild(productElement);
+    });
+}
