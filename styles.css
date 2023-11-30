@@ -21,7 +21,6 @@ footer {
     color: white;
     text-align: center;
     padding: 1em 0;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
@@ -35,38 +34,40 @@ footer {
     padding: 20px;
 }
 
-/* Individual product styles */
-#products-container div {
+/* Individual product card styles */
+.product-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: white;
-    padding: 15px;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures the content fits within the borders */
     transition: transform 0.3s ease;
 }
 
-#products-container div:hover {
+.product-card:hover {
     transform: translateY(-5px);
 }
 
 /* Product image styles */
-#products-container img {
-    max-width: 100%;
-    height: auto;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 15px;
+.product-image img {
+    width: 100%; /* Makes all images the same width */
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures the image covers the area nicely */
 }
 
-/* Product title styles */
-#products-container h2 {
+/* Product information styles */
+.product-info {
+    padding: 15px;
+}
+
+.product-info h2 {
     font-size: 1.2em;
     margin: 0 0 10px 0;
     color: #007bff;
 }
 
-/* Product description and price */
-#products-container p {
+.product-info p {
     font-size: 0.9em;
     line-height: 1.4;
     margin: 0 0 10px 0;

@@ -19,11 +19,18 @@ function displayProducts(products) {
     const container = document.getElementById('products-container');
     products.forEach(product => {
         const productElement = document.createElement('div');
+        productElement.className = 'product-card';
         productElement.innerHTML = `
-            <h2>${product.title}</h2>
-            <img src="${product.thumbnail}" alt="${product.title}" />
-            <p>${product.description}</p>
-            <p>Price: $${product.price}</p>
+            <div class="product-image">
+                <img src="${product.thumbnail}" alt="${product.title}" />
+            </div>
+            <div class="product-info">
+                <h2>${product.title}</h2>
+                <p>Price: $${product.price}</p>
+                <p>Discount: ${product.discountPercentage}%</p>
+                <p>Category: ${product.category}</p>
+                <p>Stock: ${product.stock}</p>
+            </div>
         `;
         container.appendChild(productElement);
     });
