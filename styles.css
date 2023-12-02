@@ -72,3 +72,35 @@ footer {
     line-height: 1.4;
     margin: 0 0 10px 0;
 }
+
+#search-input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 200px; /* Adjust as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Search button styles */
+header button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header button:hover {
+    background-color: #218838;
+}
+
+@media screen and (min-width: 768px) {
+    header {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

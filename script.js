@@ -17,6 +17,8 @@ async function fetchProducts() {
 
 function displayProducts(products) {
     const container = document.getElementById('products-container');
+    // Clear existing products before displaying new ones
+    container.innerHTML = '';
     products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.className = 'product-card';
@@ -38,6 +40,7 @@ function displayProducts(products) {
         container.appendChild(productElement);
     });
 }
+
 
 /*fetching the details*/
 
@@ -84,3 +87,23 @@ function displayProductDetails(product) {
         mainImage.src = img.src;
     }));
 }
+
+async function searchProducts() {
+    try {
+        const searchQuery = document.getElementById('search-input').value.toLowerCase();
+        const response = await fetch('https://dummyjson.com/products');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        const filteredProducts = data.products.filter(product => 
+            product.title.toLowerCase().includes(searchQuery) ||
+            product.description.toLowerCase().includes(searchQuery) ||
+            product.category.toLowerCase().includes(searchQuery)
+        );
+        displayProducts(filteredProducts);
+    } catch (error) {
+        console.error('Error searching products: ', error);
+    }
+}
+
