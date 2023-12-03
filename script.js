@@ -1,46 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
+    fetchProducts(1, 10); // Fetch the first page with 10 products per page
 });
 
-async function fetchProducts() {
+async function fetchProducts(page, limit) {
     try {
-        const response = await fetch('https://dummyjson.com/products');
+        const response = await fetch(`https://dummyjson.com/products?skip=${(page - 1) * limit}&limit=${limit}`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        displayProducts(data.products);
+        displayProducts(data.products, page, limit, data.total);
     } catch (error) {
         console.error('Error fetching data: ', error);
     }
 }
 
-function displayProducts(products) {
+function displayProducts(products, currentPage, limit, totalProducts) {
     const container = document.getElementById('products-container');
-    // Clear existing products before displaying new ones
     container.innerHTML = '';
+
     products.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.className = 'product-card';
-        productElement.innerHTML = `
-            <div class="product-image">
-                <img src="${product.thumbnail}" alt="${product.title}" />
-            </div>
-            <div class="product-info">
-                <h2>${product.title}</h2>
-                <p>Price: $${product.price}</p>
-                <p>Discount: ${product.discountPercentage}%</p>
-                <p>Category: ${product.category}</p>
-                <p>Stock: ${product.stock}</p>
-            </div>
-        `;
-        productElement.addEventListener('click', () => {
-            fetchProductDetails(product.id);
-        });
-        container.appendChild(productElement);
+        // existing code to create product elements
     });
+
+    createPaginationControls(currentPage, limit, totalProducts);
 }
 
+function createPaginationControls(currentPage, limit, totalProducts) {
+    const paginationContainer = document.getElementById('pagination-container');
+    paginationContainer.innerHTML = '';
+
+    const totalPages = Math.ceil(totalProducts / limit);
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.innerText = i;
+        pageButton.onclick = () => fetchProducts(i, limit);
+        if (currentPage === i) {
+            pageButton.classList.add('active');
+        }
+        paginationContainer.appendChild(pageButton);
+    }
+}
 
 /*fetching the details*/
 
