@@ -1,48 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(1, 10); // Fetch the first page with 10 products per page
+    fetchProducts();
 });
 
-async function fetchProducts(page, limit) {
+async function fetchProducts() {
     try {
-        const response = await fetch(`https://dummyjson.com/products?skip=${(page - 1) * limit}&limit=${limit}`);
+        const response = await fetch('https://dummyjson.com/products');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        displayProducts(data.products, page, limit, data.total);
+        displayProducts(data.products);
     } catch (error) {
         console.error('Error fetching data: ', error);
     }
 }
 
-function displayProducts(products, currentPage, limit, totalProducts) {
+function displayProducts(products) {
     const container = document.getElementById('products-container');
     container.innerHTML = '';
-
     products.forEach(product => {
-        // existing code to create product elements
+        const productElement = document.createElement('div');
+        productElement.className = 'product-card';
+        productElement.innerHTML = `
+            <div class="product-image">
+                <img src="${product.thumbnail}" alt="${product.title}" />
+            </div>
+            <div class="product-info">
+                <h2>${product.title}</h2>
+                <p>Price: $${product.price}</p>
+                <p>Discount: ${product.discountPercentage}%</p>
+                <p>Category: ${product.category}</p>
+                <p>Stock: ${product.stock}</p>
+            </div>
+        `;
+        productElement.addEventListener('click', () => {
+            fetchProductDetails(product.id);
+        });
+        container.appendChild(productElement);
     });
-
-    createPaginationControls(currentPage, limit, totalProducts);
 }
-
-function createPaginationControls(currentPage, limit, totalProducts) {
-    const paginationContainer = document.getElementById('pagination-container');
-    paginationContainer.innerHTML = '';
-
-    const totalPages = Math.ceil(totalProducts / limit);
-    for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.innerText = i;
-        pageButton.onclick = () => fetchProducts(i, limit);
-        if (currentPage === i) {
-            pageButton.classList.add('active');
-        }
-        paginationContainer.appendChild(pageButton);
-    }
-}
-
-/*fetching the details*/
 
 async function fetchProductDetails(productId) {
     try {
@@ -58,10 +54,7 @@ async function fetchProductDetails(productId) {
 }
 
 function displayProductDetails(product) {
-    // Clear the existing content
     document.getElementById('products-container').innerHTML = '';
-
-    // Create a new div for product details
     const detailsDiv = document.createElement('div');
     detailsDiv.className = 'product-details';
     detailsDiv.innerHTML = `
@@ -80,7 +73,6 @@ function displayProductDetails(product) {
     `;
     document.getElementById('products-container').appendChild(detailsDiv);
 
-    // Add click event listeners to each gallery image
     const galleryImages = detailsDiv.querySelectorAll('.gallery-image');
     const mainImage = detailsDiv.querySelector('.main-image');
     galleryImages.forEach(img => img.addEventListener('click', () => {
@@ -107,3 +99,44 @@ async function searchProducts() {
     }
 }
 
+async function fetchAndPopulateCategories() {
+    try {
+        const response = await fetch('https://dummyjson.com/products/categories');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const categories = await response.json();
+        const selectBox = document.getElementById('category-filter');
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            selectBox.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error fetching categories: ', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchProducts();
+    fetchAndPopulateCategories(); 
+});
+
+async function filterByCategory() {
+    const selectedCategory = document.getElementById('category-filter').value;
+    try {
+        const response = await fetch('https://dummyjson.com/products');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        let filteredProducts = data.products;
+        if (selectedCategory !== 'all') {
+            filteredProducts = filteredProducts.filter(product => product.category === selectedCategory);
+        }
+        displayProducts(filteredProducts);
+    } catch (error) {
+        console.error('Error filtering products: ', error);
+    }
+}
