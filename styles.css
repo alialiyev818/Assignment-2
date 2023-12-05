@@ -6,20 +6,24 @@ body {
     color: #333;
 }
 
-header, footer {
+header {
+    background-color: #007bff;
     color: white;
     text-align: center;
     padding: 1em 0;
 }
 
-header {
-    background-color: #007bff;
-}
-
 footer {
     background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
     bottom: 0;
     width: 100%;
+    position: relative;
+    clear: both;
+    height: 100px;
+
 }
 
 #products-container {
@@ -28,6 +32,7 @@ footer {
     justify-content: center;
     gap: 20px;
     padding: 20px;
+    margin-right: 220px;
 }
 
 .product-card {
@@ -56,41 +61,82 @@ footer {
 
 .product-info h2 {
     font-size: 1.2em;
-    margin: 0 0 10px;
+    margin: 0 0 10px 0;
     color: #007bff;
 }
 
 .product-info p {
     font-size: 0.9em;
     line-height: 1.4;
-    margin: 0 0 10px;
+    margin: 0 0 10px 0;
 }
 
-#search-input, #category-filter, header button {
+#search-input {
     padding: 10px;
     border: none;
     border-radius: 5px;
     margin-top: 10px;
-    width: 200px; 
-    background-color: white;
+    width: 200px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-
-#category-filter {
-    margin-left: 10px; 
 }
 
 header button {
+    padding: 10px 15px;
+    border: none;
     background-color: #28a745;
+    color: white;
+    border-radius: 5px;
     margin-left: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 header button:hover {
     background-color: #218838;
 }
 
-#category-filter:focus, #search-input:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px #007bff;
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+aside {
+    width: 200px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+aside h3 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-align: center;
+}
+
+aside div {
+    margin-bottom: 10px;
+}
+
+aside input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+aside label {
+    cursor: pointer;
+}
+
+main {
+    margin-left: 220px;
+    padding: 20px 20px 100px;
+}
+
+body {
+    overflow-x: hidden;
 }

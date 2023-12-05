@@ -55,6 +55,7 @@ async function fetchProductDetails(productId) {
 
 function displayProductDetails(product) {
     document.getElementById('products-container').innerHTML = '';
+
     const detailsDiv = document.createElement('div');
     detailsDiv.className = 'product-details';
     detailsDiv.innerHTML = `
@@ -99,44 +100,61 @@ async function searchProducts() {
     }
 }
 
-async function fetchAndPopulateCategories() {
+async function fetchAndDisplayCategories() {
     try {
         const response = await fetch('https://dummyjson.com/products/categories');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const categories = await response.json();
-        const selectBox = document.getElementById('category-filter');
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-            selectBox.appendChild(option);
-        });
+        displayCategories(categories);
     } catch (error) {
         console.error('Error fetching categories: ', error);
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
-    fetchAndPopulateCategories(); 
-});
+function displayCategories(categories) {
+    const filterContainer = document.getElementById('category-filter');
+    categories.forEach(category => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = category;
+        checkbox.name = category;
+        checkbox.value = category;
 
-async function filterByCategory() {
-    const selectedCategory = document.getElementById('category-filter').value;
+        const label = document.createElement('label');
+        label.htmlFor = category;
+        label.appendChild(document.createTextNode(category));
+
+        const div = document.createElement('div');
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        
+        filterContainer.appendChild(div);
+    });
+
+    
+    categories.forEach(category => {
+        document.getElementById(category).addEventListener('change', filterProductsByCategory);
+    });
+}
+
+async function filterProductsByCategory() {
     try {
         const response = await fetch('https://dummyjson.com/products');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        let filteredProducts = data.products;
-        if (selectedCategory !== 'all') {
-            filteredProducts = filteredProducts.filter(product => product.category === selectedCategory);
-        }
-        displayProducts(filteredProducts);
+        const selectedCategories = Array.from(document.querySelectorAll('#category-filter input:checked')).map(input => input.value);
+        const filteredProducts = data.products.filter(product => selectedCategories.includes(product.category));
+        displayProducts(filteredProducts.length > 0 ? filteredProducts : data.products);
     } catch (error) {
         console.error('Error filtering products: ', error);
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchProducts();
+    fetchAndDisplayCategories(); 
+});

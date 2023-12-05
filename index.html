@@ -16,15 +16,18 @@
         <h1>Products</h1>
         <input type="text" id="search-input" placeholder="Search products...">
         <button onclick="searchProducts()">Search</button>
-        <select id="category-filter" onchange="filterByCategory()">
-            <option value="all">All Categories</option>
-            
-        </select>
     </header>
+
+<div class="clearfix">
+    <aside>
+        <h3>Filter by Category</h3>
+        <div id="category-filter"></div>
+    </aside>
 
     <main>
         <div id="products-container"></div>
     </main>
+</div>
 
     <footer>
         <p>Contact us: alialiyev@gmail.com</p>
