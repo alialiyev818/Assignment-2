@@ -4,10 +4,10 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
-    overflow-x: hidden;
+    overflow-x: hidden; 
 }
 
-header {
+header, footer {
     background-color: #007bff;
     color: white;
     text-align: center;
@@ -15,77 +15,28 @@ header {
 }
 
 footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em 0;
+    background-color: #333; 
     bottom: 0;
     width: 100%;
 }
 
-#products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    margin-right: 220px;
-}
-
-.product-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: white;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden; 
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-}
-
-.product-image img {
-    width: 100%; 
-    height: 200px; 
-    object-fit: cover; 
-}
-
-.product-info {
-    padding: 15px;
-}
-
-.product-info h2 {
-    font-size: 1.2em;
-    margin: 0 0 10px 0;
-    color: #007bff;
-}
-
-.product-info p {
-    font-size: 0.9em;
-    line-height: 1.4;
-    margin: 0 0 10px 0;
-}
-
-#search-input {
+#search-input, header button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    margin-top: 10px;
-    width: 200px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+#search-input {
+    margin-top: 10px;
+    width: 200px; 
+}
+
 header button {
-    padding: 10px 15px;
-    border: none;
     background-color: #28a745;
     color: white;
-    border-radius: 5px;
     margin-left: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 header button:hover {
@@ -94,34 +45,29 @@ header button:hover {
 
 aside {
     width: 200px; 
-    float: left;
-    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    position: fixed; 
-    top: 0; 
-    bottom: 0; 
-    overflow-y: auto; 
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
 }
 
 aside h3 {
     font-size: 1.4em;
     margin-bottom: 20px;
-    color: #007bff; 
-    text-align: center; 
-}
-
-aside div {
-    margin-bottom: 10px; 
+    color: #007bff;
+    text-align: center;
 }
 
 aside input[type="checkbox"] {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 aside label {
-    font-size: 0.9em; 
-    cursor: pointer; 
+    font-size: 0.9em;
+    cursor: pointer;
 }
 
 main {
@@ -129,8 +75,46 @@ main {
     padding-top: 20px;
 }
 
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
+#products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-right: 220px; 
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    width: 300px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-info h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.product-info p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
 }
