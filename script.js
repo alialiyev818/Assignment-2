@@ -1,3 +1,6 @@
+let currentPage = 1;
+const itemsPerPage = 10;
+
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();
 });
@@ -18,7 +21,11 @@ async function fetchProducts() {
 function displayProducts(products) {
     const container = document.getElementById('products-container');
     container.innerHTML = '';
-    products.forEach(product => {
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    products.slice(startIndex, endIndex).forEach(product => {
         const productElement = document.createElement('div');
         productElement.className = 'product-card';
         productElement.innerHTML = `
@@ -38,6 +45,23 @@ function displayProducts(products) {
         });
         container.appendChild(productElement);
     });
+    updatePaginationControls(products.length);
+}
+
+function updatePaginationControls(totalItems) {
+    const paginationContainer = document.getElementById('pagination-controls');
+    paginationContainer.innerHTML = '';
+
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.innerText = i;
+        pageButton.addEventListener('click', () => {
+            currentPage = i;
+            fetchProducts();  
+        });
+        paginationContainer.appendChild(pageButton);
+    }
 }
 
 async function fetchProductDetails(productId) {
