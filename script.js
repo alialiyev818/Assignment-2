@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchProducts() {
     try {
-        const response = await fetch('https://dummyjson.com/products');
+        const response = await fetch('https://dummyjson.com/products?limit=100');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -123,13 +123,13 @@ function displayProductDetails(product) {
 }
 
 function goBackToProducts() {
-    fetchProducts(); // This will reload the products
+    fetchProducts(); 
 }
 
 async function searchProducts() {
     try {
         const searchQuery = document.getElementById('search-input').value.toLowerCase();
-        const response = await fetch('https://dummyjson.com/products');
+        const response = await fetch('https://dummyjson.com/products?limit=100');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -186,7 +186,7 @@ function displayCategories(categories) {
 
 async function filterProductsByCategory() {
     try {
-        const response = await fetch('https://dummyjson.com/products');
+        const response = await fetch('https://dummyjson.com/products?limit=100');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
