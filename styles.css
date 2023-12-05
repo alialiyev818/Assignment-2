@@ -4,6 +4,7 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    overflow-x: hidden;
 }
 
 header {
@@ -20,10 +21,6 @@ footer {
     padding: 1em 0;
     bottom: 0;
     width: 100%;
-    position: relative;
-    clear: both;
-    height: 100px;
-
 }
 
 #products-container {
@@ -41,7 +38,7 @@ footer {
     background-color: white;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    overflow: hidden; 
     transition: transform 0.3s ease;
 }
 
@@ -50,9 +47,9 @@ footer {
 }
 
 .product-image img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
 }
 
 .product-info {
@@ -76,7 +73,7 @@ footer {
     border: none;
     border-radius: 5px;
     margin-top: 10px;
-    width: 200px;
+    width: 200px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -95,48 +92,45 @@ header button:hover {
     background-color: #218838;
 }
 
-
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
 aside {
-    width: 200px;
-    background-color: #fff;
+    width: 200px; 
+    float: left;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    position: fixed; 
+    top: 0; 
+    bottom: 0; 
+    overflow-y: auto; 
 }
 
 aside h3 {
     font-size: 1.4em;
     margin-bottom: 20px;
-    color: #007bff;
-    text-align: center;
+    color: #007bff; 
+    text-align: center; 
 }
 
 aside div {
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
 }
 
 aside input[type="checkbox"] {
-    margin-right: 10px;
+    margin-right: 10px; 
 }
 
 aside label {
-    cursor: pointer;
+    font-size: 0.9em; 
+    cursor: pointer; 
 }
 
 main {
-    margin-left: 220px;
-    padding: 20px 20px 100px;
+    margin-left: 220px; 
+    padding-top: 20px;
 }
 
-body {
-    overflow-x: hidden;
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
