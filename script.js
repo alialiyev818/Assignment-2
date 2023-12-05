@@ -3,6 +3,8 @@ const itemsPerPage = 10;
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();
+    fetchAndDisplayCategories()
+    setupSearchListener();
 });
 
 async function fetchProducts() {
@@ -16,6 +18,15 @@ async function fetchProducts() {
     } catch (error) {
         console.error('Error fetching data: ', error);
     }
+}
+
+function setupSearchListener() {
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            searchProducts();
+        }
+    });
 }
 
 function displayProducts(products) {
@@ -80,6 +91,11 @@ async function fetchProductDetails(productId) {
 function displayProductDetails(product) {
     document.getElementById('products-container').innerHTML = '';
 
+    const backButton = document.createElement('button');
+    backButton.innerText = '<<< Back to Products';
+    backButton.className = 'back-button';
+    backButton.onclick = goBackToProducts;
+
     const detailsDiv = document.createElement('div');
     detailsDiv.className = 'product-details';
     detailsDiv.innerHTML = `
@@ -96,6 +112,7 @@ function displayProductDetails(product) {
             ${product.images.map(image => `<img src="${image}" alt="${product.title} image" class="gallery-image">`).join('')}
         </div>
     `;
+    document.getElementById('products-container').appendChild(backButton);
     document.getElementById('products-container').appendChild(detailsDiv);
 
     const galleryImages = detailsDiv.querySelectorAll('.gallery-image');
@@ -103,6 +120,10 @@ function displayProductDetails(product) {
     galleryImages.forEach(img => img.addEventListener('click', () => {
         mainImage.src = img.src;
     }));
+}
+
+function goBackToProducts() {
+    fetchProducts(); // This will reload the products
 }
 
 async function searchProducts() {
@@ -177,8 +198,3 @@ async function filterProductsByCategory() {
         console.error('Error filtering products: ', error);
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
-    fetchAndDisplayCategories(); 
-});
